@@ -7,11 +7,11 @@ export async function POST(request: Request) {
 
   const form = new FormData();
   form.append("q", link);
-  form.append("t", process.env.T || "");
-  form.append("lang", process.env.LANG || "");
+  form.append("t", "midia");
+  form.append("lang", "en");
 
   try {
-    const query = await fetch(process.env.URL || "", {
+    const query = await fetch("https://v3.saveig.app/api/ajaxSearch", {
       method: "POST",
       body: form,
       headers: {},
