@@ -20,6 +20,7 @@ export default function Home() {
     if (query.ok) {
       const result = await query.json();
       setResult(result);
+      setUrl("");
     } else {
       toast.error("Erro ao buscar mídias.");
     }
