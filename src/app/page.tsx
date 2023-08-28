@@ -56,7 +56,10 @@ export default function Home() {
           <div className="grid grid-cols-5 mt-14 max-sm:grid-cols-2 max-lg:grid-cols-3 max-xl:grid-cols-4">
             {results.map((item) => {
               return (
-                <div className="m-2 rounded-md flex flex-col items-center bg-slate-200 hover:scale-105 border-b border-black shadow-sm shadow-black">
+                <div
+                  className="m-2 rounded-md flex flex-col items-center bg-slate-200 hover:scale-105 border-b border-black shadow-sm shadow-black"
+                  key={item.link}
+                >
                   <Link href={item.link} target="_blank" className="flex flex-col items-center ">
                     <Image
                       src={item.thumb}
