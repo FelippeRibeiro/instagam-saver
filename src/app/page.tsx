@@ -4,11 +4,10 @@ import Link from "next/link";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 
-export default function Home() {
-  const [url, setUrl] = useState("");
+export default function Home({ URL = "" }: { URL?: string }) {
+  const [url, setUrl] = useState(URL);
   const [results, setResult] = useState<{ link: string; thumb: string }[]>();
   const [isLoading, setIsLoading] = useState(false);
-
   async function handleDownload() {
     if (!url.length) {
       toast.error("Insira um URL!");
