@@ -5,10 +5,26 @@ export async function POST(request: Request) {
   const linksAndThumbs: { link: string; thumb: string }[] = [];
   const { link } = await request.json();
 
+  const window = {
+    location: {
+      hostname: 'saveig.app',
+    },
+  };
+  const value = {
+    innerHTML: '',
+  };
+
+  const document = {
+    getElementById: (id: string): { innerHTML: string } => {
+      return value;
+    },
+  };
+
   const form = new FormData();
   form.append('q', link);
   form.append('t', 'midia');
   form.append('lang', 'en');
+  form.append('v', 'v2');
 
   try {
     const query = await fetch('https://v3.saveig.app/api/ajaxSearch', {
@@ -18,20 +34,12 @@ export async function POST(request: Request) {
     });
     let response = await query.json();
 
-    response = response.data;
+    const obfuscatedCode = response.data;
+    eval(obfuscatedCode);
 
-    const $ = cheerio.load(response);
-
-    // const links: string[] = [];
-    // $("a").each((i, el) => {
-    //   if (el.attribs.title == "Download Video" || el.attribs.title == "Download Photo") {
-    //     links.push(el.attribs.href);
-    //   }
-    // });
+    const $ = cheerio.load(value.innerHTML);
 
     $('.download-items').each((i, el) => {
-      console.log(i);
-
       const div = cheerio.load(el);
       const thumbEle = div('.download-items__thumb > img').attr();
       const link = div('.download-items__btn:nth-child(3) > a').attr()?.href;
